@@ -65,3 +65,15 @@ func GetSongs(c *gin.Context) {
 
 	c.JSON(http.StatusOK, songs)
 }
+
+func GetSongByID(c *gin.Context) {
+	id := c.Param("id")
+	var song models.Song
+	err := songCollection.FindOne(context.Background(), bson.M{"_id": id}).Decode(&song)
+	if err != nil {
+		c.JSON(http.StatusNotFound, gin.H{"error": "song not found"})
+		return
+	}
+
+	c.JSON(http.StatusOK, song)
+}
