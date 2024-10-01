@@ -100,5 +100,15 @@ func UpdateSOng(c *gin.Context) {
 		return
 	}
 
-	c.JSON(http.StatusOK, gin.H{"message": "song updated successfully"})
+	c.JSON(http.StatusOK, gin.H{"message": "song updated"})
+}
+
+func DeleteSong(c *gin.Context) {
+	id := c.Param("id")
+	_, err := songCollection.DeleteOne(context.Background(), bson.M{"_id": id})
+	if err != nil {
+		c.JSON(http.StatusInternalServerError, gin.H{"error": err.Error()})
+		return
+	}
+	c.JSON(http.StatusOK, gin.H{"message": "song deleted"})
 }
