@@ -78,7 +78,7 @@ func GetSongByID(c *gin.Context) {
 	c.JSON(http.StatusOK, song)
 }
 
-func UpdateSOng(c *gin.Context) {
+func UpdateSong(c *gin.Context) {
 	id := c.Param("id")
 	var song models.Song
 	if err := c.ShouldBindJSON(&song); err != nil {
